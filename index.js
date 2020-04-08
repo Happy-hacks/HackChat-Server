@@ -18,7 +18,7 @@ app.post('/authenticate', (req, res) => {
 	// should to be from database
 	const users = {
 		marc: 'pass',
-		tobi: 'pass'
+		tobi: 'pass',
 	};
 
 	// proxy validation
