@@ -22,6 +22,8 @@ app.post('/authenticate', (req, res) => {
 	const users = {
 		marc: 'pass',
 		tobi: 'pass',
+		ralle: 'pass',
+		steph: 'pass',
 	};
 
 	// proxy validation
@@ -29,23 +31,23 @@ app.post('/authenticate', (req, res) => {
 	else res.status(404).send({ error: 'login for this username and password is invalid' });
 });
 
-app.post('/notifications/subscribe', (req, res) => {
+app.post('/subscribe', (req, res) => {
 	const subscription = req.body;
-
-	console.log('request::', subscription);
+	const { title, body, icon } = subscription;
 
 	const payload = JSON.stringify({
-		title: subscription.title || 'Hello!',
-		body: subscription.message || 'It works!',
-		icon: subscription.icon,
+		title: title || 'Dr. Le Quack',
+		body: body || "qu'est que c'est!",
+		icon: icon || 'https://vignette.wikia.nocookie.net/villains/images/b/b9/Le_Quack.png/revision/latest/top-crop/width/360/height/450?cb=20200202175536',
 	});
 
-	webPush
-		.sendNotification(subscription, payload)
-		.then((result) => console.log(result))
-		.catch((e) => console.log(e.stack));
-
-	res.status(200).json({ success: true });
+	try {
+		webPush.sendNotification(subscription, payload);
+		res.status(200).json({ success: true });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error: error.message });
+	}
 });
 
 const server = app.listen(port, () => console.log(`Server listening on port ${port}! @ http://localhost:${port}/`));

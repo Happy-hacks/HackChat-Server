@@ -19,6 +19,7 @@
 	},
 	"scripts": {
 		"start": "nodemon index.js",
-		"test": "echo 'not implemented yet.'"
+		"test": "echo 'not implemented yet.'",
+		"kanban": "start https://github.com/Happy-hacks/HackChat/projects/1?fullscreen=true || open https://github.com/Happy-hacks/HackChat/projects/1?fullscreen=true"
 	}
 }
